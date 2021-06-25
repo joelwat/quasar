@@ -15,7 +15,10 @@ module.exports = function (content, map) {
         }
 
         const name = data[0].trim()
-        return `import ${name} from '${importTransformation(name)}';`
+
+        if (name !== '') {
+          return `import ${name} from '${importTransformation(name)}';`
+        }
       })
       .join('')
   )
