@@ -16,6 +16,7 @@
     <q-tab-panels
       v-model="tab"
       keep-alive
+      keep-alive-exclude="three"
       swipeable
       animated
       infinite
@@ -45,6 +46,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="three">
+        <div class="text-weight-bold">Excluded from keep-alive</div>
         <keep-alive-test name="three" />
         <q-uploader
           multiple
@@ -70,6 +72,8 @@
 </template>
 
 <script>
+import { h } from 'vue'
+
 export default {
   components: {
     KeepAliveTest: {
@@ -91,21 +95,21 @@ export default {
         this.log('mounted')
       },
 
-      beforeDestroy () {
-        this.log('beforeDestroy')
+      beforeUnmount () {
+        this.log('beforeUnmount')
       },
 
-      destroyed () {
+      unmounted () {
         this.log('destroyed')
       },
 
       methods: {
         log (what) {
-          console.log(`[KeepAliveTest > ${this.name}] ${what}`)
+          console.log(`[KeepAliveTest > ${ this.name }] ${ what }`)
         }
       },
 
-      render (h) {
+      render () {
         return h('div', [ 'keep alive test ' + this.name ])
       }
     }
